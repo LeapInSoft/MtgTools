@@ -1,57 +1,69 @@
-var http = require('http');
-var fs = require('fs');
-var sets = require('./AllSets.json');
+const http = require('https');
+const fs = require('fs');
+const sets = require('./AllSets.json');
+const R = require('ramda');
 
-function dl(filename, setDirectory, url) {
-  console.log(filename, setDirectory, url);
-    if (!fs.existsSync(setDirectory)) {
-      fs.mkdirSync(setDirectory);
-    }
-    let fullFileName = `./${setDirectory}/${filename}`;
-    if (fs.existsSync(fullFileName)) {
-      console.log(`Skip ${fullFileName}`);
-      return;
-    }
-
-    var file = fs.createWriteStream(fullFileName);
-    var request = http.get(url, function(response) {
-        response.pipe(file);
-    });
+// # Data manipulation
+const choiceName = (card) => card.names !== undefined ? (card.names.length > 1 ? card.names.join("") : card.name) : card.name;
+const setAlias = (setName) => {
+  switch (setName) {
+    case 'CON':
+      return 'CFX';
+  }
+  return setName;
 }
+const simplifiedCards = (setName) => R.map(x => ({ multiverseid : x.multiverseId , name : choiceName(x), set : setName}))
+const trackCountedCard = (countedCard, name) => countedCard[name] ? 
+    [`${name}${countedCard[name]}`, {...countedCard, [name]: countedCard[name] + 1 } ]
+    : [name, countedCard];
 
-function dlCards(cards) {
-  var nbrCards = cards.length,
-      land = {
-        Forest : 1,
-        Mountain : 1,
-        Swamp : 1,
-        Plains : 1,
-        Island : 1
-      };
-  console.log(nbrCards);
-  for (var i = 0; i < nbrCards; i++) {
-      try {
-        var card = cards[i],
-          name = card.name;
-        if (land[name]) {
-          let tempName = name;
-          name = `${name}${land[name]}`;
-          land[tempName]++;
-        } 
-        let action = function(name, set, multiverseid) {
-          return _ => dl(`${name}.full.jpg`, set, `http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${multiverseid}&type=card`)
-        };
-        setTimeout(action(name, card.set, card.multiverseid), 1000 * i);
-      } catch (e) {
-        console.log(card,i);
-        console.log(e);
-      }
-      
+// Helper
+const wizardsUrl = (id) => `https://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${id}&type=card`;
+const reduceIndexed = R.addIndex(R.reduce);
+
+// Impure Download
+const downloadImpure = (log)  => (filename, setDirectory, url) => {
+  const fullFileName = `./${setDirectory}/${filename}`;
+  log(filename, setDirectory, url);
+  !fs.existsSync(setDirectory) && fs.mkdirSync(setDirectory);
+
+  if (fs.existsSync(fullFileName)) {
+    log(`Skip ${fullFileName}`)
+  } else {
+    http.get(url, function(response) {
+      response.pipe(fs.createWriteStream(fullFileName));
+    });
   }
 }
+const delayQueueN = (callback, time, n) => {
+  setTimeout(callback, time * n)
+}
+const dlFromWizardH = (downloadImpure) => 
+  (name, directory, multiverseid) => downloadImpure(`${name}.full.jpg`, directory, wizardsUrl(multiverseid));
+
+const dlFromWizard = dlFromWizardH(downloadImpure(console.log));
+
+const dlCardReducer = (countedCard, card, i) => {
+  try {
+    const [name, nextCountedCard] = trackCountedCard(countedCard, card.name);
+    delayQueueN(() => dlFromWizard(name, card.set, card.multiverseid), 2000, i);
+    return nextCountedCard;
+  } catch (e) {
+    console.log(card,i, countedCard, e);
+  }
+  return countedCard;
+}
+
+
+const dlCards = reduceIndexed(dlCardReducer, {
+  Forest : 1,
+  Mountain : 1,
+  Swamp : 1,
+  Plains : 1,
+  Island : 1
+});
 var setName = process.argv[2];
-console.log(setName);
 var set = sets[setName];
-var cards = set.cards.map(x => { return { multiverseid : x.multiverseid , name : x.name, set : setName}})
-console.log(cards.length);
-dlCards(cards);
+
+console.log(set.cards.length);
+R.pipe(simplifiedCards(setAlias(setName)), dlCards)(set.cards);
