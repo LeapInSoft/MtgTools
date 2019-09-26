@@ -1,6 +1,6 @@
 const http = require('https');
 const fs = require('fs');
-const sets = require('./AllSets.json');
+const sets = require('./ELD.json');
 const R = require('ramda');
 
 // # Data manipulation
@@ -63,7 +63,7 @@ const dlCards = reduceIndexed(dlCardReducer, {
   Island : 1
 });
 var setName = process.argv[2];
-var set = sets[setName];
+var set = sets[setName] || sets;
 
 console.log(set.cards.length);
 R.pipe(simplifiedCards(setAlias(setName)), dlCards)(set.cards);
