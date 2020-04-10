@@ -1,0 +1,2966 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <div id="main">
+            <input type="text" />
+            <ul>
+                <li v-for="card in filteredCards">
+                    <div>{{ card.score }} - {{ card.name }} - {{ card.tier }}</div>
+                    <div>
+                        <img v-bind:src="'./ignore_data/ELD/' + card.name + '.full.jpg'" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <script>
+            (function() {
+                var app = new Vue({
+                    el: '#main',
+                    computed: {
+                        filteredCards : function () {
+                            return this.cards.reduce((a, v) => /*v.rarity === 'uncommon' ||*/ v.rarity === 'common' ? [...a, v] : a, []);
+                        }
+                    },
+                    data: {
+                        rarities : [],
+                        cards : [
+                            {
+                                "colors": [
+                                    "B",
+                                    "G"
+                                ],
+                                "name": "Garruk, Cursed Huntsman",
+                                "rarity": "mythic",
+                                "type": "Legendary Planeswalker — Garruk",
+                                "manaCost": "{4}{B}{G}",
+                                "text": "[0]: Create two 2/2 black and green Wolf creature tokens with \"When this creature dies, put a loyalty counter on each Garruk you control.\"\n[−3]: Destroy target creature. Draw a card.\n[−6]: You get an emblem with \"Creatures you control get +3/+3 and have trample.\"",
+                                "score": "1",
+                                "tier": "Tier 1: Incredible Bombs"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Harmonious Archon",
+                                "rarity": "mythic",
+                                "type": "Creature — Archon",
+                                "manaCost": "{4}{W}{W}",
+                                "text": "Flying\nNon-Archon creatures have base power and toughness 3/3.\nWhen Harmonious Archon enters the battlefield, create two 1/1 white Human creature tokens.",
+                                "score": "2",
+                                "tier": "Tier 1: Incredible Bombs"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Murderous Rider",
+                                "rarity": "rare",
+                                "type": "Creature — Zombie Knight",
+                                "manaCost": "{1}{B}{B}",
+                                "text": "Lifelink\nWhen Murderous Rider dies, put it on the bottom of its owner's library.",
+                                "score": "3",
+                                "tier": "Tier 1: Incredible Bombs"
+                            },
+                            {
+                                "colors": [
+                                    "G",
+                                    "U"
+                                ],
+                                "name": "Oko, Thief of Crowns",
+                                "rarity": "mythic",
+                                "type": "Legendary Planeswalker — Oko",
+                                "manaCost": "{1}{G}{U}",
+                                "text": "[+2]: Create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")\n[+1]: Target artifact or creature loses all abilities and becomes a green Elk creature with base power and toughness 3/3.\n[−5]: Exchange control of target artifact or creature you control and target creature an opponent controls with power 3 or less.",
+                                "score": "4",
+                                "tier": "Tier 1: Incredible Bombs"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "U"
+                                ],
+                                "name": "Lochmere Serpent",
+                                "rarity": "rare",
+                                "type": "Creature — Serpent",
+                                "manaCost": "{4}{U}{B}",
+                                "text": "Flash\n{U}, Sacrifice an Island: Lochmere Serpent can't be blocked this turn.\n{B}, Sacrifice a Swamp: You gain 1 life and draw a card.\n{U}{B}: Exile five target cards from an opponent's graveyard. Return Lochmere Serpent from your graveyard to your hand. Activate this ability only any time you could cast a sorcery.",
+                                "score": "5",
+                                "tier": "Tier 1: Incredible Bombs"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "The Circle of Loyalty",
+                                "rarity": "mythic",
+                                "type": "Legendary Artifact",
+                                "manaCost": "{4}{W}{W}",
+                                "text": "This spell costs {1} less to cast for each Knight you control.\nCreatures you control get +1/+1.\nWhenever you cast a legendary spell, create a 2/2 white Knight creature token with vigilance.\n{3}{W}, {T}: Create a 2/2 white Knight creature token with vigilance.",
+                                "score": "6",
+                                "tier": "Tier 1: Incredible Bombs"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Brazen Borrower",
+                                "rarity": "mythic",
+                                "type": "Creature — Faerie Rogue",
+                                "manaCost": "{1}{U}{U}",
+                                "text": "Flash\nFlying\nBrazen Borrower can block only creatures with flying.",
+                                "score": "7",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "The Great Henge",
+                                "rarity": "mythic",
+                                "type": "Legendary Artifact",
+                                "manaCost": "{7}{G}{G}",
+                                "text": "This spell costs {X} less to cast, where X is the greatest power among creatures you control.\n{T}: Add {G}{G}. You gain 2 life.\nWhenever a nontoken creature enters the battlefield under your control, put a +1/+1 counter on it and draw a card.",
+                                "score": "8",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Bonecrusher Giant",
+                                "rarity": "rare",
+                                "type": "Creature — Giant",
+                                "manaCost": "{2}{R}",
+                                "text": "Whenever Bonecrusher Giant becomes the target of a spell, Bonecrusher Giant deals 2 damage to that spell's controller.",
+                                "score": "9",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Stonecoil Serpent",
+                                "rarity": "rare",
+                                "type": "Artifact Creature — Snake",
+                                "manaCost": "{X}",
+                                "text": "Reach, trample, protection from multicolored\nStonecoil Serpent enters the battlefield with X +1/+1 counters on it.",
+                                "score": "10",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Opportunistic Dragon",
+                                "rarity": "rare",
+                                "type": "Creature — Dragon",
+                                "manaCost": "{2}{R}{R}",
+                                "text": "Flying\nWhen Opportunistic Dragon enters the battlefield, choose target Human or artifact an opponent controls. For as long as Opportunistic Dragon remains on the battlefield, gain control of that permanent, it loses all abilities, and it can't attack or block.",
+                                "score": "11",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Clackbridge Troll",
+                                "rarity": "rare",
+                                "type": "Creature — Troll",
+                                "manaCost": "{3}{B}{B}",
+                                "text": "Trample, haste\nWhen Clackbridge Troll enters the battlefield, target opponent creates three 0/1 white Goat creature tokens.\nAt the beginning of combat on your turn, any opponent may sacrifice a creature. If a player does, tap Clackbridge Troll, you gain 3 life, and you draw a card.",
+                                "score": "12",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Questing Beast",
+                                "rarity": "mythic",
+                                "type": "Legendary Creature — Beast",
+                                "manaCost": "{2}{G}{G}",
+                                "text": "Vigilance, deathtouch, haste\nQuesting Beast can't be blocked by creatures with power 2 or less.\nCombat damage that would be dealt by creatures you control can't be prevented.\nWhenever Questing Beast deals combat damage to an opponent, it deals that much damage to target planeswalker that player controls.",
+                                "score": "13",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Realm-Cloaked Giant",
+                                "rarity": "mythic",
+                                "type": "Creature — Giant",
+                                "manaCost": "{5}{W}{W}",
+                                "text": "Vigilance",
+                                "score": "14",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Wicked Wolf",
+                                "rarity": "rare",
+                                "type": "Creature — Wolf",
+                                "manaCost": "{2}{G}{G}",
+                                "text": "When Wicked Wolf enters the battlefield, it fights up to one target creature you don't control.\nSacrifice a Food: Put a +1/+1 counter on Wicked Wolf. It gains indestructible until end of turn. Tap it.",
+                                "score": "15",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Irencrag Pyromancer",
+                                "rarity": "rare",
+                                "type": "Creature — Human Wizard",
+                                "manaCost": "{2}{R}",
+                                "text": "Whenever you draw your second card each turn, Irencrag Pyromancer deals 3 damage to any target.",
+                                "score": "16",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Feasting Troll King",
+                                "rarity": "rare",
+                                "type": "Creature — Troll Noble",
+                                "manaCost": "{2}{G}{G}{G}{G}",
+                                "text": "Vigilance, trample\nWhen Feasting Troll King enters the battlefield, if you cast it from your hand, create three Food tokens. (They're artifacts with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")\nSacrifice three Foods: Return Feasting Troll King from your graveyard to the battlefield. Activate this ability only during your turn.",
+                                "score": "17",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Rankle, Master of Pranks",
+                                "rarity": "mythic",
+                                "type": "Legendary Creature — Faerie Rogue",
+                                "manaCost": "{2}{B}{B}",
+                                "text": "Flying, haste\nWhenever Rankle, Master of Pranks deals combat damage to a player, choose any number —\n• Each player discards a card.\n• Each player loses 1 life and draws a card.\n• Each player sacrifices a creature.",
+                                "score": "18",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Gadwick, the Wizened",
+                                "rarity": "rare",
+                                "type": "Legendary Creature — Human Wizard",
+                                "manaCost": "{X}{U}{U}{U}",
+                                "text": "When Gadwick, the Wizened enters the battlefield, draw X cards.\nWhenever you cast a blue spell, tap target nonland permanent an opponent controls.",
+                                "score": "19",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Sundering Stroke",
+                                "rarity": "rare",
+                                "type": "Sorcery",
+                                "manaCost": "{6}{R}",
+                                "text": "Sundering Stroke deals 7 damage divided as you choose among one, two, or three targets. If at least seven red mana was spent to cast this spell, instead Sundering Stroke deals 7 damage to each of those permanents and/or players.",
+                                "score": "20",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R",
+                                    "W"
+                                ],
+                                "name": "Outlaws' Merriment",
+                                "rarity": "mythic",
+                                "type": "Enchantment",
+                                "manaCost": "{1}{R}{W}{W}",
+                                "text": "At the beginning of your upkeep, choose one at random. Create a red and white creature token with those characteristics.\n• 3/1 Human Warrior with trample and haste.\n• 2/1 Human Cleric with lifelink and haste.\n• 1/2 Human Rogue with haste and \"When this creature enters the battlefield, it deals 1 damage to any target.\"",
+                                "score": "21",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R",
+                                    "U"
+                                ],
+                                "name": "The Royal Scions",
+                                "rarity": "mythic",
+                                "type": "Legendary Planeswalker — Will Rowan",
+                                "manaCost": "{1}{U}{R}",
+                                "text": "[+1]: Draw a card, then discard a card.\n[+1]: Target creature gets +2/+0 and gains first strike and trample until end of turn.\n[−8]: Draw four cards. When you do, The Royal Scions deals damage to any target equal to the number of cards in your hand.",
+                                "score": "22",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Yorvo, Lord of Garenbrig",
+                                "rarity": "rare",
+                                "type": "Legendary Creature — Giant Noble",
+                                "manaCost": "{G}{G}{G}",
+                                "text": "Yorvo, Lord of Garenbrig enters the battlefield with four +1/+1 counters on it.\nWhenever another green creature enters the battlefield under your control, put a +1/+1 counter on Yorvo. Then if that creature's power is greater than Yorvo's power, put another +1/+1 counter on Yorvo.",
+                                "score": "23",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Linden, the Steadfast Queen",
+                                "rarity": "rare",
+                                "type": "Legendary Creature — Human Noble",
+                                "manaCost": "{W}{W}{W}",
+                                "text": "Vigilance\nWhenever a white creature you control attacks, you gain 1 life.",
+                                "score": "24",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Torbran, Thane of Red Fell",
+                                "rarity": "rare",
+                                "type": "Legendary Creature — Dwarf Noble",
+                                "manaCost": "{1}{R}{R}{R}",
+                                "text": "If a red source you control would deal damage to an opponent or a permanent an opponent controls, it deals that much damage plus 2 instead.",
+                                "score": "25",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Epic Downfall",
+                                "rarity": "uncommon",
+                                "type": "Sorcery",
+                                "manaCost": "{1}{B}",
+                                "text": "Exile target creature with converted mana cost 3 or greater.",
+                                "score": "26",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Stolen by the Fae",
+                                "rarity": "rare",
+                                "type": "Sorcery",
+                                "manaCost": "{X}{U}{U}",
+                                "text": "Return target creature with converted mana cost X to its owner's hand. You create X 1/1 blue Faerie creature tokens with flying.",
+                                "score": "27",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Worthy Knight",
+                                "rarity": "rare",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{1}{W}",
+                                "text": "Whenever you cast a Knight spell, create a 1/1 white Human creature token.",
+                                "score": "28",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Wildborn Preserver",
+                                "rarity": "rare",
+                                "type": "Creature — Elf Archer",
+                                "manaCost": "{1}{G}",
+                                "text": "Flash\nReach\nWhenever another non-Human creature enters the battlefield under your control, you may pay {X}. When you do, put X +1/+1 counters on Wildborn Preserver.",
+                                "score": "29",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Piper of the Swarm",
+                                "rarity": "rare",
+                                "type": "Creature — Human Warlock",
+                                "manaCost": "{1}{B}",
+                                "text": "Rats you control have menace.\n{1}{B}, {T}: Create a 1/1 black Rat creature token.\n{2}{B}{B}, {T}, Sacrifice three Rats: Gain control of target creature.",
+                                "score": "30",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Lovestruck Beast",
+                                "rarity": "rare",
+                                "type": "Creature — Beast Noble",
+                                "manaCost": "{2}{G}",
+                                "text": "Lovestruck Beast can't attack unless you control a 1/1 creature.",
+                                "score": "31",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Syr Alin, the Lion's Claw",
+                                "rarity": "uncommon",
+                                "type": "Legendary Creature — Human Knight",
+                                "manaCost": "{3}{W}{W}",
+                                "text": "First strike\nWhenever Syr Alin, the Lion's Claw attacks, other creatures you control get +1/+1 until end of turn.",
+                                "score": "32",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G",
+                                    "W"
+                                ],
+                                "name": "Faeburrow Elder",
+                                "rarity": "rare",
+                                "type": "Creature — Treefolk Druid",
+                                "manaCost": "{1}{G}{W}",
+                                "text": "Vigilance\nFaeburrow Elder gets +1/+1 for each color among permanents you control.\n{T}: For each color among permanents you control, add one mana of that color.",
+                                "score": "33",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Oathsworn Knight",
+                                "rarity": "rare",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{1}{B}{B}",
+                                "text": "Oathsworn Knight enters the battlefield with four +1/+1 counters on it.\nOathsworn Knight attacks each combat if able.\nIf damage would be dealt to Oathsworn Knight while it has a +1/+1 counter on it, prevent that damage and remove a +1/+1 counter from it.",
+                                "score": "34",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Robber of the Rich",
+                                "rarity": "mythic",
+                                "type": "Creature — Human Archer Rogue",
+                                "manaCost": "{1}{R}",
+                                "text": "Reach, haste\nWhenever Robber of the Rich attacks, if defending player has more cards in hand than you, exile the top card of their library. During any turn you attacked with a Rogue, you may cast that card and you may spend mana as though it were mana of any color to cast that spell.",
+                                "score": "35",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Embercleave",
+                                "rarity": "mythic",
+                                "type": "Legendary Artifact — Equipment",
+                                "manaCost": "{4}{R}{R}",
+                                "text": "Flash\nThis spell costs {1} less to cast for each attacking creature you control.\nWhen Embercleave enters the battlefield, attach it to target creature you control.\nEquipped creature gets +1/+1 and has double strike and trample.\nEquip {3}",
+                                "score": "36",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "U",
+                                    "W"
+                                ],
+                                "name": "Arcanist's Owl",
+                                "rarity": "uncommon",
+                                "type": "Artifact Creature — Bird",
+                                "manaCost": "{W/U}{W/U}{W/U}{W/U}",
+                                "text": "Flying\nWhen Arcanist's Owl enters the battlefield, look at the top four cards of your library. You may reveal an artifact or enchantment card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+                                "score": "37",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Acclaimed Contender",
+                                "rarity": "rare",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{2}{W}",
+                                "text": "When Acclaimed Contender enters the battlefield, if you control another Knight, look at the top five cards of your library. You may reveal a Knight, Aura, Equipment, or legendary artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+                                "score": "38",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Giant Killer",
+                                "rarity": "rare",
+                                "type": "Creature — Human Peasant",
+                                "manaCost": "{W}",
+                                "text": "{1}{W}, {T}: Tap target creature.",
+                                "score": "39",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Bake into a Pie",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{2}{B}{B}",
+                                "text": "Destroy target creature. Create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "40",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Slaying Fire",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{2}{R}",
+                                "text": "Slaying Fire deals 3 damage to any target.\nAdamant — If at least three red mana was spent to cast this spell, it deals 4 damage instead.",
+                                "score": "41",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G",
+                                    "U"
+                                ],
+                                "name": "Maraleaf Pixie",
+                                "rarity": "uncommon",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{G}{U}",
+                                "text": "Flying\n{T}: Add {G} or {U}.",
+                                "score": "42",
+                                "tier": "Tier 2: Great First Picks"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Syr Faren, the Hengehammer",
+                                "rarity": "uncommon",
+                                "type": "Legendary Creature — Human Knight",
+                                "manaCost": "{G}{G}",
+                                "text": "Whenever Syr Faren, the Hengehammer attacks, another target attacking creature gets +X/+X until end of turn, where X is Syr Faren's power.",
+                                "score": "43",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G",
+                                    "R"
+                                ],
+                                "name": "Rampart Smasher",
+                                "rarity": "uncommon",
+                                "type": "Creature — Giant",
+                                "manaCost": "{R/G}{R/G}{R/G}{R/G}",
+                                "text": "Rampart Smasher can't be blocked by Knights or Walls.",
+                                "score": "44",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Archon of Absolution",
+                                "rarity": "uncommon",
+                                "type": "Creature — Archon",
+                                "manaCost": "{3}{W}",
+                                "text": "Flying\nProtection from white (This creature can't be blocked, targeted, dealt damage, enchanted, or equipped by anything white.)\nCreatures can't attack you or a planeswalker you control unless their controller pays {1} for each of those creatures.",
+                                "score": "45",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G",
+                                    "R"
+                                ],
+                                "name": "Grumgully, the Generous",
+                                "rarity": "uncommon",
+                                "type": "Legendary Creature — Goblin Shaman",
+                                "manaCost": "{1}{R}{G}",
+                                "text": "Each other non-Human creature you control enters the battlefield with an additional +1/+1 counter on it.",
+                                "score": "46",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Bog Naughty",
+                                "rarity": "uncommon",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{3}{B}{B}",
+                                "text": "Flying\n{2}{B}, Sacrifice a Food: Target creature gets -3/-3 until end of turn.",
+                                "score": "47",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Scorching Dragonfire",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{1}{R}",
+                                "text": "Scorching Dragonfire deals 3 damage to target creature or planeswalker. If that creature or planeswalker would die this turn, exile it instead.",
+                                "score": "48",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Syr Carah, the Bold",
+                                "rarity": "uncommon",
+                                "type": "Legendary Creature — Human Knight",
+                                "manaCost": "{3}{R}{R}",
+                                "text": "When Syr Carah, the Bold or an instant or sorcery spell you control deals damage to a player, exile the top card of your library. You may play that card this turn.\n{T}: Syr Carah deals 1 damage to any target.",
+                                "score": "49",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "G"
+                                ],
+                                "name": "Savvy Hunter",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Warrior",
+                                "manaCost": "{1}{B}{G}",
+                                "text": "Whenever Savvy Hunter attacks or blocks, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")\nSacrifice two Foods: Draw a card.",
+                                "score": "50",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "R",
+                                    "W"
+                                ],
+                                "name": "Inspiring Veteran",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{R}{W}",
+                                "text": "Other Knights you control get +1/+1.",
+                                "score": "51",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "R",
+                                    "W"
+                                ],
+                                "name": "Fireborn Knight",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{R/W}{R/W}{R/W}{R/W}",
+                                "text": "Double strike\n{R/W}{R/W}{R/W}{R/W}: Fireborn Knight gets +1/+1 until end of turn.",
+                                "score": "52",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Syr Konrad, the Grim",
+                                "rarity": "uncommon",
+                                "type": "Legendary Creature — Human Knight",
+                                "manaCost": "{3}{B}{B}",
+                                "text": "Whenever another creature dies, or a creature card is put into a graveyard from anywhere other than the battlefield, or a creature card leaves your graveyard, Syr Konrad, the Grim deals 1 damage to each opponent.\n{1}{B}: Each player puts the top card of their library into their graveyard.",
+                                "score": "53",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "W"
+                                ],
+                                "name": "Wintermoor Commander",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{W}{B}",
+                                "text": "Deathtouch\nWintermoor Commander's toughness is equal to the number of Knights you control.\nWhenever Wintermoor Commander attacks, another target Knight you control gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+                                "score": "54",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Return of the Wildspeaker",
+                                "rarity": "rare",
+                                "type": "Instant",
+                                "manaCost": "{4}{G}",
+                                "text": "Choose one —\n• Draw cards equal to the greatest power among non-Human creatures you control.\n• Non-Human creatures you control get +3/+3 until end of turn.",
+                                "score": "55",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Blacklance Paragon",
+                                "rarity": "rare",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{1}{B}",
+                                "text": "Flash\nWhen Blacklance Paragon enters the battlefield, target Knight gains deathtouch and lifelink until end of turn.",
+                                "score": "56",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "R",
+                                    "U"
+                                ],
+                                "name": "Loch Dragon",
+                                "rarity": "uncommon",
+                                "type": "Creature — Dragon",
+                                "manaCost": "{U/R}{U/R}{U/R}{U/R}",
+                                "text": "Flying\nWhenever Loch Dragon enters the battlefield or attacks, you may discard a card. If you do, draw a card.",
+                                "score": "57",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Reave Soul",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{1}{B}",
+                                "text": "Destroy target creature with power 3 or less.",
+                                "score": "58",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Trapped in the Tower",
+                                "rarity": "common",
+                                "type": "Enchantment — Aura",
+                                "manaCost": "{1}{W}",
+                                "text": "Enchant creature without flying\nEnchanted creature can't attack or block, and its activated abilities can't be activated.",
+                                "score": "59",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "U",
+                                    "W"
+                                ],
+                                "name": "Shinechaser",
+                                "rarity": "uncommon",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{1}{W}{U}",
+                                "text": "Flying, vigilance\nShinechaser gets +1/+1 as long as you control an artifact.\nShinechaser gets +1/+1 as long as you control an enchantment.",
+                                "score": "60",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "R"
+                                ],
+                                "name": "Steelclaw Lance",
+                                "rarity": "uncommon",
+                                "type": "Artifact — Equipment",
+                                "manaCost": "{B}{R}",
+                                "text": "Equipped creature gets +2/+2.\nEquip Knight {1} ({1}: Attach to target Knight creature you control. Equip only as a sorcery.)\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+                                "score": "61",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Order of Midnight",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{1}{B}",
+                                "text": "Flying\nOrder of Midnight can't block.",
+                                "score": "62",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Charmed Sleep",
+                                "rarity": "common",
+                                "type": "Enchantment — Aura",
+                                "manaCost": "{1}{U}{U}",
+                                "text": "Enchant creature\nWhen Charmed Sleep enters the battlefield, tap enchanted creature.\nEnchanted creature doesn't untap during its controller's untap step.",
+                                "score": "63",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "W"
+                                ],
+                                "name": "Resolute Rider",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{W/B}{W/B}{W/B}{W/B}",
+                                "text": "{W/B}{W/B}: Resolute Rider gains lifelink until end of turn.\n{W/B}{W/B}{W/B}: Resolute Rider gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+                                "score": "64",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "R",
+                                    "U"
+                                ],
+                                "name": "Improbable Alliance",
+                                "rarity": "uncommon",
+                                "type": "Enchantment",
+                                "manaCost": "{U}{R}",
+                                "text": "Whenever you draw your second card each turn, create a 1/1 blue Faerie creature token with flying.\n{4}{U}{R}: Draw a card, then discard a card.",
+                                "score": "65",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "R"
+                                ],
+                                "name": "Stormfist Crusader",
+                                "rarity": "rare",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{B}{R}",
+                                "text": "Menace\nAt the beginning of your upkeep, each player draws a card and loses 1 life.",
+                                "score": "66",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Fierce Witchstalker",
+                                "rarity": "common",
+                                "type": "Creature — Wolf",
+                                "manaCost": "{2}{G}{G}",
+                                "text": "Trample\nWhen Fierce Witchstalker enters the battlefield, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "67",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "R"
+                                ],
+                                "name": "Elite Headhunter",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{B/R}{B/R}{B/R}{B/R}",
+                                "text": "Menace (This creature can't be blocked except by two or more creatures.)\n{B/R}{B/R}{B/R}, Sacrifice another creature or an artifact: Elite Headhunter deals 2 damage to target creature or planeswalker.",
+                                "score": "68",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Syr Elenora, the Discerning",
+                                "rarity": "uncommon",
+                                "type": "Legendary Creature — Human Knight",
+                                "manaCost": "{3}{U}{U}",
+                                "text": "Syr Elenora, the Discerning's power is equal to the number of cards in your hand.\nWhen Syr Elenora enters the battlefield, draw a card.\nSpells your opponents cast that target Syr Elenora cost {2} more to cast.",
+                                "score": "69",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Searing Barrage",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{4}{R}",
+                                "text": "Searing Barrage deals 5 damage to target creature.\nAdamant — If at least three red mana was spent to cast this spell, Searing Barrage deals 3 damage to that creature's controller.",
+                                "score": "70",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "U"
+                                ],
+                                "name": "Covetous Urge",
+                                "rarity": "uncommon",
+                                "type": "Sorcery",
+                                "manaCost": "{U/B}{U/B}{U/B}{U/B}",
+                                "text": "Target opponent reveals their hand. You choose a nonland card from that player's graveyard or hand and exile it. You may cast that card for as long as it remains exiled, and you may spend mana as though it were mana of any color to cast that spell.",
+                                "score": "71",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Outmuscle",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{3}{G}",
+                                "text": "Put a +1/+1 counter on target creature you control, then it fights target creature you don't control. (Each deals damage equal to its power to the other.)\nAdamant — If at least three green mana was spent to cast this spell, the creature you control gains indestructible until end of turn.",
+                                "score": "72",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Witch's Vengeance",
+                                "rarity": "rare",
+                                "type": "Sorcery",
+                                "manaCost": "{1}{B}{B}",
+                                "text": "Creatures of the creature type of your choice get -3/-3 until end of turn.",
+                                "score": "73",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "W",
+                                    "G"
+                                ],
+                                "name": "Oakhame Ranger",
+                                "rarity": "uncommon",
+                                "type": "Creature — Elf Knight",
+                                "manaCost": "{G/W}{G/W}{G/W}{G/W}",
+                                "text": "{T}: Creatures you control get +1/+1 until end of turn.",
+                                "score": "74",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Foulmire Knight",
+                                "rarity": "uncommon",
+                                "type": "Creature — Zombie Knight",
+                                "manaCost": "{B}",
+                                "text": "Deathtouch",
+                                "score": "75",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "G"
+                                ],
+                                "name": "Deathless Knight",
+                                "rarity": "uncommon",
+                                "type": "Creature — Skeleton Knight",
+                                "manaCost": "{B/G}{B/G}{B/G}{B/G}",
+                                "text": "Haste\nWhen you gain life for the first time each turn, return Deathless Knight from your graveyard to your hand.",
+                                "score": "76",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Vantress Gargoyle",
+                                "rarity": "rare",
+                                "type": "Artifact Creature — Gargoyle",
+                                "manaCost": "{1}{U}",
+                                "text": "Flying\nVantress Gargoyle can't attack unless defending player has seven or more cards in their graveyard.\nVantress Gargoyle can't block unless you have four or more cards in hand.\n{T}: Each player puts the top card of their library into their graveyard.",
+                                "score": "77",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G",
+                                    "U"
+                                ],
+                                "name": "Thunderous Snapper",
+                                "rarity": "uncommon",
+                                "type": "Creature — Turtle Hydra",
+                                "manaCost": "{G/U}{G/U}{G/U}{G/U}",
+                                "text": "Whenever you cast a spell with converted mana cost 5 or greater, draw a card.",
+                                "score": "78",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Glass Casket",
+                                "rarity": "uncommon",
+                                "type": "Artifact",
+                                "manaCost": "{1}{W}",
+                                "text": "When Glass Casket enters the battlefield, exile target creature an opponent controls with converted mana cost 3 or less until Glass Casket leaves the battlefield.",
+                                "score": "79",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G",
+                                    "W"
+                                ],
+                                "name": "Wandermare",
+                                "rarity": "uncommon",
+                                "type": "Creature — Horse",
+                                "manaCost": "{1}{G}{W}",
+                                "text": "Whenever you cast a creature spell that has an Adventure, put a +1/+1 counter on Wandermare. (It doesn't need to have gone on the adventure first.)",
+                                "score": "80",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Ayara, First of Locthwain",
+                                "rarity": "rare",
+                                "type": "Legendary Creature — Elf Noble",
+                                "manaCost": "{B}{B}{B}",
+                                "text": "Whenever Ayara, First of Locthwain or another black creature enters the battlefield under your control, each opponent loses 1 life and you gain 1 life.\n{T}, Sacrifice another black creature: Draw a card.",
+                                "score": "81",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Charming Prince",
+                                "rarity": "rare",
+                                "type": "Creature — Human Noble",
+                                "manaCost": "{1}{W}",
+                                "text": "When Charming Prince enters the battlefield, choose one —\n• Scry 2.\n• You gain 3 life.\n• Exile another target creature you own. Return it to the battlefield under your control at the beginning of the next end step.",
+                                "score": "82",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Keeper of Fables",
+                                "rarity": "uncommon",
+                                "type": "Creature — Cat",
+                                "manaCost": "{3}{G}{G}",
+                                "text": "Whenever one or more non-Human creatures you control deal combat damage to a player, draw a card.",
+                                "score": "83",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Animating Faerie",
+                                "rarity": "uncommon",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{2}{U}",
+                                "text": "Flying",
+                                "score": "84",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Faerie Vandal",
+                                "rarity": "uncommon",
+                                "type": "Creature — Faerie Rogue",
+                                "manaCost": "{1}{U}",
+                                "text": "Flash\nFlying\nWhenever you draw your second card each turn, put a +1/+1 counter on Faerie Vandal.",
+                                "score": "85",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Tome Raider",
+                                "rarity": "common",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{2}{U}",
+                                "text": "Flying\nWhen Tome Raider enters the battlefield, draw a card.",
+                                "score": "86",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Gilded Goose",
+                                "rarity": "rare",
+                                "type": "Creature — Bird",
+                                "manaCost": "{G}",
+                                "text": "Flying\nWhen Gilded Goose enters the battlefield, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")\n{1}{G}, {T}: Create a Food token.\n{T}, Sacrifice a Food: Add one mana of any color.",
+                                "score": "87",
+                                "tier": "Tier 3: Above Average Cards"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Fae of Wishes",
+                                "rarity": "rare",
+                                "type": "Creature — Faerie Wizard",
+                                "manaCost": "{1}{U}",
+                                "text": "Flying\n{1}{U}, Discard two cards: Return Fae of Wishes to its owner's hand.",
+                                "score": "88",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Shepherd of the Flock",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Peasant",
+                                "manaCost": "{1}{W}",
+                                "score": "89",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Mysterious Pathlighter",
+                                "rarity": "uncommon",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{2}{W}",
+                                "text": "Flying\nEach creature you control that has an Adventure enters the battlefield with an additional +1/+1 counter on it. (It doesn't need to have gone on the adventure first.)",
+                                "score": "90",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "U"
+                                ],
+                                "name": "Drown in the Loch",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{U}{B}",
+                                "text": "Choose one —\n• Counter target spell with converted mana cost less than or equal to the number of cards in its controller's graveyard.\n• Destroy target creature with converted mana cost less than or equal to the number of cards in its controller's graveyard.",
+                                "score": "91",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Mirrormade",
+                                "rarity": "rare",
+                                "type": "Enchantment",
+                                "manaCost": "{1}{U}{U}",
+                                "text": "You may have Mirrormade enter the battlefield as a copy of any artifact or enchantment on the battlefield.",
+                                "score": "92",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Hypnotic Sprite",
+                                "rarity": "uncommon",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{U}{U}",
+                                "text": "Flying",
+                                "score": "93",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Joust",
+                                "rarity": "uncommon",
+                                "type": "Sorcery",
+                                "manaCost": "{1}{R}",
+                                "text": "Choose target creature you control and target creature you don't control. The creature you control gets +2/+1 until end of turn if it's a Knight. Then those creatures fight each other. (Each deals damage equal to its power to the other.)",
+                                "score": "94",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Beanstalk Giant",
+                                "rarity": "uncommon",
+                                "type": "Creature — Giant",
+                                "manaCost": "{6}{G}",
+                                "text": "Beanstalk Giant's power and toughness are each equal to the number of lands you control.",
+                                "score": "95",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Queen of Ice",
+                                "rarity": "common",
+                                "type": "Creature — Human Noble Wizard",
+                                "manaCost": "{2}{U}",
+                                "text": "Whenever Queen of Ice deals combat damage to a creature, tap that creature. It doesn't untap during its controller's next untap step.",
+                                "score": "96",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Hushbringer",
+                                "rarity": "rare",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{1}{W}",
+                                "text": "Flying, lifelink\nCreatures entering the battlefield or dying don't cause abilities to trigger.",
+                                "score": "97",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Mad Ratter",
+                                "rarity": "uncommon",
+                                "type": "Creature — Goblin",
+                                "manaCost": "{3}{R}",
+                                "text": "Whenever you draw your second card each turn, create two 1/1 black Rat creature tokens.",
+                                "score": "98",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Tempting Witch",
+                                "rarity": "common",
+                                "type": "Creature — Human Warlock",
+                                "manaCost": "{2}{B}",
+                                "text": "When Tempting Witch enters the battlefield, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")\n{2}, {T}, Sacrifice a Food: Target player loses 3 life.",
+                                "score": "99",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Ardenvale Tactician",
+                                "rarity": "common",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{1}{W}{W}",
+                                "text": "Flying",
+                                "score": "100",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Oakhame Adversary",
+                                "rarity": "uncommon",
+                                "type": "Creature — Elf Warrior",
+                                "manaCost": "{3}{G}",
+                                "text": "This spell costs {2} less to cast if your opponent controls a green permanent.\nDeathtouch\nWhenever Oakhame Adversary deals combat damage to a player, draw a card.",
+                                "score": "101",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Into the Story",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{5}{U}{U}",
+                                "text": "This spell costs {3} less to cast if an opponent has seven or more cards in their graveyard.\nDraw four cards.",
+                                "score": "102",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Trail of Crumbs",
+                                "rarity": "uncommon",
+                                "type": "Enchantment",
+                                "manaCost": "{1}{G}",
+                                "text": "When Trail of Crumbs enters the battlefield, create a Food token.\nWhenever you sacrifice a Food, you may pay {1}. If you do, look at the top two cards of your library. You may reveal a permanent card from among them and put it into your hand. Put the rest on the bottom of your library in any order.",
+                                "score": "103",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Scalding Cauldron",
+                                "rarity": "common",
+                                "type": "Artifact",
+                                "manaCost": "{1}",
+                                "text": "{3}, {T}, Sacrifice Scalding Cauldron: It deals 3 damage to target creature.",
+                                "score": "104",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Sage of the Falls",
+                                "rarity": "uncommon",
+                                "type": "Creature — Merfolk Wizard",
+                                "manaCost": "{4}{U}",
+                                "text": "Whenever Sage of the Falls or another non-Human creature enters the battlefield under you control, you may draw a card. If you do, discard a card.",
+                                "score": "105",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Foreboding Fruit",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{2}{B}",
+                                "text": "Target player draws two cards and loses 2 life.\nAdamant — If at least three black mana was spent to cast this spell, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 2 life.\")",
+                                "score": "106",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Fabled Passage",
+                                "rarity": "rare",
+                                "type": "Land",
+                                "text": "{T}, Sacrifice Fabled Passage: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle your library. Then if you control four or more lands, untap that land.",
+                                "score": "107",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Castle Ardenvale",
+                                "rarity": "rare",
+                                "type": "Land",
+                                "text": "Castle Ardenvale enters the battlefield tapped unless you control a Plains.\n{T}: Add {W}.\n{2}{W}{W}, {T}: Create a 1/1 white Human creature token.",
+                                "score": "108",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Castle Locthwain",
+                                "rarity": "rare",
+                                "type": "Land",
+                                "text": "Castle Locthwain enters the battlefield tapped unless you control a Swamp.\n{T}: Add {B}.\n{1}{B}{B}, {T}: Draw a card, then you lose life equal to the number of cards in your hand.",
+                                "score": "109",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "The Cauldron of Eternity",
+                                "rarity": "mythic",
+                                "type": "Legendary Artifact",
+                                "manaCost": "{10}{B}{B}",
+                                "text": "This spell costs {2} less to cast for each creature card in your graveyard.\nWhenever a creature you control dies, put it on the bottom of its owner's library.\n{2}{B}, {T}, Pay 2 life: Return target creature card from your graveyard to the battlefield. Activate this ability only any time you could cast a sorcery.",
+                                "score": "110",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Rally for the Throne",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{2}{W}",
+                                "text": "Create two 1/1 white Human creature tokens.\nAdamant — If at least three white mana was spent to cast this spell, you gain 1 life for each creature you control.",
+                                "score": "111",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Giant Opportunity",
+                                "rarity": "uncommon",
+                                "type": "Sorcery",
+                                "manaCost": "{2}{G}",
+                                "text": "You may sacrifice two Foods. If you do, create a 7/7 green Giant creature token. Otherwise, create three Food tokens. (They're artifacts with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "112",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Redcap Melee",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{R}",
+                                "text": "Redcap Melee deals 4 damage to target creature or planeswalker. If a nonred permanent is dealt damage this way, you sacrifice a land.",
+                                "score": "113",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Fervent Champion",
+                                "rarity": "rare",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{R}",
+                                "text": "First strike, haste\nWhenever Fervent Champion attacks, another target attacking Knight you control gets +1/+0 until end of turn.\nEquip abilities you activate that target Fervent Champion cost {3} less to activate.",
+                                "score": "114",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "B",
+                                    "W"
+                                ],
+                                "name": "Doom Foretold",
+                                "rarity": "rare",
+                                "type": "Enchantment",
+                                "manaCost": "{2}{W}{B}",
+                                "text": "At the beginning of each player's upkeep, that player sacrifices a nonland, nontoken permanent. If that player can't, they discard a card, they lose 2 life, you draw a card, you gain 2 life, you create a 2/2 white Knight creature token with vigilance, then you sacrifice Doom Foretold.",
+                                "score": "115",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Burning-Yard Trainer",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{4}{R}",
+                                "text": "Trample, haste\nWhen Burning-Yard Trainer enters the battlefield, another target Knight you control gets +2/+2 and gains trample and haste until end of turn.",
+                                "score": "116",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Once Upon a Time",
+                                "rarity": "rare",
+                                "type": "Instant",
+                                "manaCost": "{1}{G}",
+                                "text": "If this spell is the first spell you've cast this game, you may cast it without paying its mana cost.\nLook at the top five cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+                                "score": "117",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Turn into a Pumpkin",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{3}{U}",
+                                "text": "Return target nonland permanent to its owner's hand. Draw a card.\nAdamant — If at least three blue mana was spent to cast this spell, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "118",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Belle of the Brawl",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{2}{B}",
+                                "text": "Menace (This creature can't be blocked except by two or more creatures.)\nWhenever Belle of the Brawl attacks, other Knights you control get +1/+0 until end of turn.",
+                                "score": "119",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Run Away Together",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{1}{U}",
+                                "text": "Choose two target creatures controlled by different players. Return those creatures to their owners' hands.",
+                                "score": "120",
+                                "tier": "Tier 4: Solid Playables"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Youthful Knight",
+                                "rarity": "common",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{1}{W}",
+                                "text": "First strike",
+                                "score": "121",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Outflank",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{W}",
+                                "text": "Outflank deals damage to target attacking or blocking creature equal to the number of creatures you control.",
+                                "score": "122",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Dwarven Mine",
+                                "rarity": "common",
+                                "type": "Land — Mountain",
+                                "text": "({T}: Add {R}.)\nDwarven Mine enters the battlefield tapped unless you control three or more other Mountains.\nWhen Dwarven Mine enters the battlefield untapped, create a 1/1 red Dwarf creature token.",
+                                "score": "123",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Malevolent Noble",
+                                "rarity": "common",
+                                "type": "Creature — Human Noble",
+                                "manaCost": "{1}{B}",
+                                "text": "{2}, Sacrifice an artifact or another creature: Put a +1/+1 counter on Malevolent Noble.",
+                                "score": "124",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Gingerbread Cabin",
+                                "rarity": "common",
+                                "type": "Land — Forest",
+                                "text": "({T}: Add {G}.)\nGingerbread Cabin enters the battlefield tapped unless you control three or more other Forests.\nWhen Gingerbread Cabin enters the battlefield untapped, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "125",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Lucky Clover",
+                                "rarity": "uncommon",
+                                "type": "Artifact",
+                                "manaCost": "{2}",
+                                "text": "Whenever you cast an Adventure instant or sorcery spell, copy it. You may choose new targets for the copy.",
+                                "score": "126",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Castle Embereth",
+                                "rarity": "rare",
+                                "type": "Land",
+                                "text": "Castle Embereth enters the battlefield tapped unless you control a Mountain.\n{T}: Add {R}.\n{1}{R}{R}, {T}: Creatures you control get +1/+0 until end of turn.",
+                                "score": "127",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Castle Vantress",
+                                "rarity": "rare",
+                                "type": "Land",
+                                "text": "Castle Vantress enters the battlefield tapped unless you control an Island.\n{T}: Add {U}.\n{2}{U}{U}, {T}: Scry 2.",
+                                "score": "128",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Overwhelmed Apprentice",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Wizard",
+                                "manaCost": "{U}",
+                                "text": "When Overwhelmed Apprentice enters the battlefield, each opponent puts the top two cards of their library into their graveyard. Then you scry 2. (Look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)",
+                                "score": "129",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Lonesome Unicorn",
+                                "rarity": "common",
+                                "type": "Creature — Unicorn",
+                                "manaCost": "{4}{W}",
+                                "text": "Vigilance",
+                                "score": "130",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Clockwork Servant",
+                                "rarity": "uncommon",
+                                "type": "Artifact Creature — Gnome",
+                                "manaCost": "{3}",
+                                "text": "Adamant — When Clockwork Servant enters the battlefield, if at least three mana of the same color was spent to cast it, draw a card.",
+                                "score": "131",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Ferocity of the Wilds",
+                                "rarity": "uncommon",
+                                "type": "Enchantment",
+                                "manaCost": "{2}{R}",
+                                "text": "Attacking non-Human creatures you control get +1/+0 and have trample.",
+                                "score": "132",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "The Magic Mirror",
+                                "rarity": "mythic",
+                                "type": "Legendary Artifact",
+                                "manaCost": "{6}{U}{U}{U}",
+                                "text": "This spell costs {1} less to cast for each instant and sorcery card in your graveyard.\nYou have no maximum hand size.\nAt the beginning of your upkeep, put a knowledge counter on The Magic Mirror, then draw a card for each knowledge counter on The Magic Mirror.",
+                                "score": "133",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U",
+                                    "W"
+                                ],
+                                "name": "Dance of the Manse",
+                                "rarity": "rare",
+                                "type": "Sorcery",
+                                "manaCost": "{X}{W}{U}",
+                                "text": "Return up to X target artifact and/or non-Aura enchantment cards each with converted mana cost X or less from your graveyard to the battlefield. If X is 6 or more, those permanents are 4/4 creatures in addition to their other types.",
+                                "score": "134",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Idyllic Grange",
+                                "rarity": "common",
+                                "type": "Land — Plains",
+                                "text": "({T}: Add {W}.)\nIdyllic Grange enters the battlefield tapped unless you control three or more other Plains.\nWhen Idyllic Grange enters the battlefield untapped, put a +1/+1 counter on target creature you control.",
+                                "score": "135",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Merchant of the Vale",
+                                "rarity": "common",
+                                "type": "Creature — Human Peasant",
+                                "manaCost": "{2}{R}",
+                                "text": "{2}{R}, Discard a card: Draw a card.",
+                                "score": "136",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Edgewall Innkeeper",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Peasant",
+                                "manaCost": "{G}",
+                                "text": "Whenever you cast a creature spell that has an Adventure, draw a card. (It doesn't need to have gone on the adventure first.)",
+                                "score": "137",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Spinning Wheel",
+                                "rarity": "uncommon",
+                                "type": "Artifact",
+                                "manaCost": "{3}",
+                                "text": "{T}: Add one mana of any color.\n{5}, {T}: Tap target creature.",
+                                "score": "138",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Garenbrig Paladin",
+                                "rarity": "common",
+                                "type": "Creature — Giant Knight",
+                                "manaCost": "{4}{G}",
+                                "text": "Adamant — If at least three green mana was spent to cast this spell, Garenbrig Paladin enters the battlefield with a +1/+1 counter on it.\nGarenbrig Paladin can't be blocked by creatures with power 2 or less.",
+                                "score": "139",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Once and Future",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{3}{G}",
+                                "text": "Return target card from your graveyard to your hand. Put up to one other target card from your graveyard on top of your library. Exile Once and Future.\nAdamant — If at least three green mana was spent to cast this spell, instead return those cards to your hand and exile Once and Future.",
+                                "score": "140",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Enchanted Carriage",
+                                "rarity": "uncommon",
+                                "type": "Artifact — Vehicle",
+                                "manaCost": "{5}",
+                                "text": "When Enchanted Carriage enters the battlefield, create two 1/1 white Mouse creature tokens.\nCrew 2 (Tap any number of creatures you control with total power 2 or more: This Vehicle becomes an artifact creature until end of turn.)",
+                                "score": "141",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Venerable Knight",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{W}",
+                                "text": "When Venerable Knight dies, put a +1/+1 counter on target Knight you control.",
+                                "score": "142",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Smitten Swordmaster",
+                                "rarity": "common",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{1}{B}",
+                                "text": "Lifelink",
+                                "score": "143",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Midnight Clock",
+                                "rarity": "rare",
+                                "type": "Artifact",
+                                "manaCost": "{2}{U}",
+                                "text": "{T}: Add {U}.\n{2}{U}: Put an hour counter on Midnight Clock.\nAt the beginning of each upkeep, put an hour counter on Midnight Clock.\nWhen the twelfth hour counter is put on Midnight Clock, shuffle your hand and graveyard into your library, then draw seven cards. Exile Midnight Clock.",
+                                "score": "144",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Witch's Cottage",
+                                "rarity": "common",
+                                "type": "Land — Swamp",
+                                "text": "({T}: Add {B}.)\nWitch's Cottage enters the battlefield tapped unless you control three or more other Swamps.\nWhen Witch's Cottage enters the battlefield untapped, you may put target creature card from your graveyard on top of your library.",
+                                "score": "145",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Sporecap Spider",
+                                "rarity": "common",
+                                "type": "Creature — Spider",
+                                "manaCost": "{2}{G}",
+                                "text": "Reach (This creature can block creatures with flying.)",
+                                "score": "146",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Didn't Say Please",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{1}{U}{U}",
+                                "text": "Counter target spell. Its controller puts the top three cards of their library into their graveyard.",
+                                "score": "147",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Prized Griffin",
+                                "rarity": "common",
+                                "type": "Creature — Griffin",
+                                "manaCost": "{4}{W}",
+                                "text": "Flying",
+                                "score": "148",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Flutterfox",
+                                "rarity": "common",
+                                "type": "Creature — Fox",
+                                "manaCost": "{1}{W}",
+                                "text": "As long as you control an artifact or enchantment, Flutterfox has flying.",
+                                "score": "149",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Thrill of Possibility",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{1}{R}",
+                                "text": "As an additional cost to cast this spell, discard a card.\nDraw two cards.",
+                                "score": "150",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Moonlit Scavengers",
+                                "rarity": "common",
+                                "type": "Creature — Merfolk Rogue",
+                                "manaCost": "{5}{U}",
+                                "text": "When Moonlit Scavengers enters the battlefield, if you control an artifact or enchantment, return target creature an opponent controls to its owner's hand.",
+                                "score": "151",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Mystic Sanctuary",
+                                "rarity": "common",
+                                "type": "Land — Island",
+                                "text": "({T}: Add {U}.)\nMystic Sanctuary enters the battlefield tapped unless you control three or more other Islands.\nWhen Mystic Sanctuary enters the battlefield untapped, you may put target instant or sorcery card from your graveyard on top of your library.",
+                                "score": "152",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "So Tiny",
+                                "rarity": "common",
+                                "type": "Enchantment — Aura",
+                                "manaCost": "{U}",
+                                "text": "Flash\nEnchant creature\nEnchanted creature gets -2/-0. It gets -6/-0 instead as long as its controller has seven or more cards in their graveyard.",
+                                "score": "153",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Kenrith's Transformation",
+                                "rarity": "uncommon",
+                                "type": "Enchantment — Aura",
+                                "manaCost": "{1}{G}",
+                                "text": "Enchant creature\nWhen Kenrith's Transformation enters the battlefield, draw a card.\nEnchanted creature loses all abilities and is a green Elk creature with base power and toughness 3/3. (It loses all other card types and creature types.)",
+                                "score": "154",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Steelgaze Griffin",
+                                "rarity": "common",
+                                "type": "Creature — Griffin",
+                                "manaCost": "{4}{U}",
+                                "text": "Flying\nWhen you draw your second card each turn, Steelgaze Griffin gets +2/+0 until end of turn.",
+                                "score": "155",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Bloodhaze Wolverine",
+                                "rarity": "common",
+                                "type": "Creature — Wolverine",
+                                "manaCost": "{1}{R}",
+                                "text": "Whenever you draw your second card each turn, Bloodhaze Wolverine gets +1/+1 and gains first strike until end of turn.",
+                                "score": "156",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Unexplained Vision",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{4}{U}",
+                                "text": "Draw three cards.\nAdamant — If at least three blue mana was spent to cast this spell, scry 3.",
+                                "score": "157",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Garenbrig Carver",
+                                "rarity": "common",
+                                "type": "Creature — Human Warrior",
+                                "manaCost": "{3}{G}",
+                                "score": "158",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Fortifying Provisions",
+                                "rarity": "common",
+                                "type": "Enchantment",
+                                "manaCost": "{2}{W}",
+                                "text": "Creatures you control get +0/+1.\nWhen Fortifying Provisions enters the battlefield, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "159",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Giant's Skewer",
+                                "rarity": "common",
+                                "type": "Artifact — Equipment",
+                                "manaCost": "{1}{B}",
+                                "text": "Equipped creature gets +2/+1.\nWhenever equipped creature deals combat damage to a creature, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+                                "score": "160",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Castle Garenbrig",
+                                "rarity": "rare",
+                                "type": "Land",
+                                "text": "Castle Garenbrig enters the battlefield tapped unless you control a Forest.\n{T}: Add {G}.\n{2}{G}{G}, {T}: Add six {G}. Spend this mana only to cast creature spells or activate abilities of creatures.",
+                                "score": "161",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G",
+                                    "R"
+                                ],
+                                "name": "Escape to the Wilds",
+                                "rarity": "rare",
+                                "type": "Sorcery",
+                                "manaCost": "{3}{R}{G}",
+                                "text": "Exile the top five cards of your library. You may play cards exiled this way until the end of your next turn.\nYou may play an additional land this turn.",
+                                "score": "162",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Forever Young",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{1}{B}",
+                                "text": "Put any number of target creature cards from your graveyard on top of your library.\nDraw a card.",
+                                "score": "163",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Silverflame Squire",
+                                "rarity": "common",
+                                "type": "Creature — Human Soldier",
+                                "manaCost": "{1}{W}",
+                                "score": "164",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Tuinvale Treefolk",
+                                "rarity": "common",
+                                "type": "Creature — Treefolk Druid",
+                                "manaCost": "{5}{G}",
+                                "score": "165",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Henge Walker",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Golem",
+                                "manaCost": "{3}",
+                                "text": "Adamant — If at least three mana of the same color was spent to cast this spell, Henge Walker enters the battlefield with a +1/+1 counter on it.",
+                                "score": "166",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Redcap Raiders",
+                                "rarity": "common",
+                                "type": "Creature — Goblin Warrior",
+                                "manaCost": "{2}{R}",
+                                "text": "Whenever Redcap Raiders attacks, you may tap an untapped non-Human creature you control. If you do, Redcap Raiders gets +1/+1 and gains trample until end of turn.",
+                                "score": "167",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Revenge of Ravens",
+                                "rarity": "uncommon",
+                                "type": "Enchantment",
+                                "manaCost": "{3}{B}",
+                                "text": "Whenever a creature attacks you or a planeswalker you control, that creature's controller loses 1 life and you gain 1 life.",
+                                "score": "168",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Lost Legion",
+                                "rarity": "common",
+                                "type": "Creature — Spirit Knight",
+                                "manaCost": "{1}{B}{B}",
+                                "text": "When Lost Legion enters the battlefield, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)",
+                                "score": "169",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Ogre Errant",
+                                "rarity": "common",
+                                "type": "Creature — Ogre Knight",
+                                "manaCost": "{3}{R}",
+                                "text": "Whenever Ogre Errant attacks, another target attacking Knight gains menace until end of turn. (It can't be blocked except by two or more creatures.)",
+                                "score": "170",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Skullknocker Ogre",
+                                "rarity": "uncommon",
+                                "type": "Creature — Ogre",
+                                "manaCost": "{3}{R}",
+                                "text": "Whenever Skullknocker Ogre deals damage to an opponent, that player discards a card at random. If the player does, they draw a card.",
+                                "score": "171",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Wishclaw Talisman",
+                                "rarity": "rare",
+                                "type": "Artifact",
+                                "manaCost": "{1}{B}",
+                                "text": "Wishclaw Talisman enters the battlefield with three wish counters on it.\n{1}, {T}, Remove a wish counter from Wishclaw Talisman: Search your library for a card, put it into your hand, then shuffle your library. An opponent gains control of Wishclaw Talisman. Activate this ability only during your turn.",
+                                "score": "172",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Brimstone Trebuchet",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Wall",
+                                "manaCost": "{2}{R}",
+                                "text": "Defender, reach\n{T}: Brimstone Trebuchet deals 1 damage to each opponent.\nWhenever a Knight enters the battlefield under your control, untap Brimstone Trebuchet.",
+                                "score": "173",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Wicked Guardian",
+                                "rarity": "common",
+                                "type": "Creature — Human Noble",
+                                "manaCost": "{3}{B}",
+                                "text": "When Wicked Guardian enters the battlefield, you may have it deal 2 damage to another creature you control. If you do, draw a card.",
+                                "score": "174",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Witch's Oven",
+                                "rarity": "uncommon",
+                                "type": "Artifact",
+                                "manaCost": "{1}",
+                                "text": "{T}, Sacrifice a creature: Create a Food token. If the sacrificed creature's toughness was 4 or greater, create two Food tokens instead. (They're artifacts with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "175",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Rosethorn Acolyte",
+                                "rarity": "common",
+                                "type": "Creature — Elf Druid",
+                                "manaCost": "{2}{G}",
+                                "text": "{T}: Add one mana of any color.",
+                                "score": "176",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Shambling Suit",
+                                "rarity": "uncommon",
+                                "type": "Artifact Creature — Construct",
+                                "manaCost": "{3}",
+                                "text": "Shambling Suit's power is equal to the number of artifacts and/or enchantments you control.",
+                                "score": "177",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Silverflame Ritual",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{3}{W}",
+                                "text": "Put a +1/+1 counter on each creature you control.\nAdamant — If at least three white mana was spent to cast this spell, creatures you control gain vigilance until end of turn.",
+                                "score": "178",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Heraldic Banner",
+                                "rarity": "uncommon",
+                                "type": "Artifact",
+                                "manaCost": "{3}",
+                                "text": "As Heraldic Banner enters the battlefield, choose a color.\nCreatures you control of the chosen color get +1/+0.\n{T}: Add one mana of the chosen color.",
+                                "score": "179",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Embereth Shieldbreaker",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{1}{R}",
+                                "score": "180",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Signpost Scarecrow",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Scarecrow",
+                                "manaCost": "{4}",
+                                "text": "Vigilance\n{2}: Add one mana of any color.",
+                                "score": "181",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Barrow Witches",
+                                "rarity": "common",
+                                "type": "Creature — Human Warlock",
+                                "manaCost": "{4}{B}",
+                                "text": "When Barrow Witches enters the battlefield, return target Knight card from your graveyard to your hand.",
+                                "score": "182",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Merfolk Secretkeeper",
+                                "rarity": "common",
+                                "type": "Creature — Merfolk Wizard",
+                                "manaCost": "{U}",
+                                "score": "183",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Rimrock Knight",
+                                "rarity": "common",
+                                "type": "Creature — Dwarf Knight",
+                                "manaCost": "{1}{R}",
+                                "text": "Rimrock Knight can't block.",
+                                "score": "184",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Festive Funeral",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{4}{B}",
+                                "text": "Target creature gets -X/-X until end of turn, where X is the number of cards in your graveyard.",
+                                "score": "185",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Rosethorn Halberd",
+                                "rarity": "common",
+                                "type": "Artifact — Equipment",
+                                "manaCost": "{G}",
+                                "text": "When Rosethorn Halberd enters the battlefield, attach it to target non-Human creature you control.\nEquipped creature gets +2/+1.\nEquip {5} ({5}: Attach to target creature you control. Equip only as a sorcery.)",
+                                "score": "186",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Locthwain Paladin",
+                                "rarity": "common",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{3}{B}",
+                                "text": "Menace (This creature can't be blocked except by two or more creatures.)\nAdamant — If at least three black mana was spent to cast this spell, Locthwain Paladin enters the battlefield with a +1/+1 counter on it.",
+                                "score": "187",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Mantle of Tides",
+                                "rarity": "common",
+                                "type": "Artifact — Equipment",
+                                "manaCost": "{U}",
+                                "text": "Equipped creature gets +1/+2.\nWhenever you draw your second card each turn, attach Mantle of Tides to target creature you control.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+                                "score": "188",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Vantress Paladin",
+                                "rarity": "common",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{3}{U}",
+                                "text": "Flying\nAdamant — If at least three blue mana was spent to cast this spell, Vantress Paladin enters the battlefield with an additional +1/+1 counter on it.",
+                                "score": "189",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Cauldron's Gift",
+                                "rarity": "uncommon",
+                                "type": "Sorcery",
+                                "manaCost": "{4}{B}",
+                                "text": "Adamant — If at least three black mana was spent to cast this spell, put the top four cards of your library into your graveyard.\nYou may choose a creature card in your graveyard. If you do, return it to the battlefield with an additional +1/+1 counter on it.",
+                                "score": "190",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Garenbrig Squire",
+                                "rarity": "common",
+                                "type": "Creature — Human Soldier",
+                                "manaCost": "{1}{G}",
+                                "text": "Whenever you cast a creature spell that has an Adventure, Garenbrig Squire gets +1/+1 until end of turn. (It doesn't need to have gone on the adventure first.)",
+                                "score": "191",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Mistford River Turtle",
+                                "rarity": "common",
+                                "type": "Creature — Turtle",
+                                "manaCost": "{3}{U}",
+                                "text": "Whenever Mistford River Turtle attacks, another target attacking non-Human creature can't be blocked this turn.",
+                                "score": "192",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Wolf's Quarry",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{4}{G}{G}",
+                                "text": "Create three 1/1 green Boar creature tokens with \"When this creature dies, create a Food token.\" (A Food token is an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "193",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Raging Redcap",
+                                "rarity": "common",
+                                "type": "Creature — Goblin Knight",
+                                "manaCost": "{2}{R}",
+                                "text": "Double strike",
+                                "score": "194",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Maraleaf Rider",
+                                "rarity": "common",
+                                "type": "Creature — Elf Knight",
+                                "manaCost": "{1}{G}",
+                                "text": "Sacrifice a Food: Target creature blocks Maraleaf Rider this turn if able.",
+                                "score": "195",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Insatiable Appetite",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{1}{G}",
+                                "text": "You may sacrifice a Food. If you do, target creature gets +5/+5 until end of turn. Otherwise, that creature gets +3/+3 until end of turn.",
+                                "score": "196",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Righteousness",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{W}",
+                                "text": "Target blocking creature gets +7/+7 until end of turn.",
+                                "score": "197",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Opt",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{U}",
+                                "text": "Scry 1. (Look at the top card of your library. You may put that card on the bottom of your library.)\nDraw a card.",
+                                "score": "198",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Seven Dwarves",
+                                "rarity": "common",
+                                "type": "Creature — Dwarf",
+                                "manaCost": "{1}{R}",
+                                "text": "Seven Dwarves gets +1/+1 for each other creature named Seven Dwarves you control.\nA deck can have up to seven cards named Seven Dwarves.",
+                                "score": "199",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Curious Pair",
+                                "rarity": "common",
+                                "type": "Creature — Human Peasant",
+                                "manaCost": "{1}{G}",
+                                "score": "200",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Wildwood Tracker",
+                                "rarity": "common",
+                                "type": "Creature — Elf Warrior",
+                                "manaCost": "{G}",
+                                "text": "Whenever Wildwood Tracker attacks or blocks, if you control another non-Human creature, Wildwood Tracker gets +1/+1 until end of turn.",
+                                "score": "201",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Faerie Guidemother",
+                                "rarity": "common",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{W}",
+                                "text": "Flying",
+                                "score": "202",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Mystical Dispute",
+                                "rarity": "uncommon",
+                                "type": "Instant",
+                                "manaCost": "{2}{U}",
+                                "text": "This spell costs {2} less to cast if it targets a blue spell.\nCounter target spell unless its controller pays {3}.",
+                                "score": "203",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Frogify",
+                                "rarity": "uncommon",
+                                "type": "Enchantment — Aura",
+                                "manaCost": "{1}{U}",
+                                "text": "Enchant creature\nEnchanted creature loses all abilities and is a blue Frog creature with base power and toughness 1/1. (It loses all other card types and creature types.)",
+                                "score": "204",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Shining Armor",
+                                "rarity": "common",
+                                "type": "Artifact — Equipment",
+                                "manaCost": "{1}{W}",
+                                "text": "Flash\nWhen Shining Armor enters the battlefield, attach it to target Knight you control.\nEquipped creature gets +0/+2 and has vigilance.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+                                "score": "205",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Tournament Grounds",
+                                "rarity": "uncommon",
+                                "type": "Land",
+                                "text": "{T}: Add {C}.\n{T}: Add {R}, {W}, or {B}. Spend this mana only to cast a Knight or Equipment spell.",
+                                "score": "206",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Golden Egg",
+                                "rarity": "common",
+                                "type": "Artifact — Food",
+                                "manaCost": "{2}",
+                                "text": "When Golden Egg enters the battlefield, draw a card.\n{1}, {T}, Sacrifice Golden Egg: Add one mana of any color.\n{2}, {T}, Sacrifice Golden Egg: You gain 3 life.",
+                                "score": "207",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Witching Well",
+                                "rarity": "common",
+                                "type": "Artifact",
+                                "manaCost": "{U}",
+                                "text": "When Witching Well enters the battlefield, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)\n{3}{U}, Sacrifice Witching Well: Draw two cards.",
+                                "score": "208",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Crystal Slipper",
+                                "rarity": "common",
+                                "type": "Artifact — Equipment",
+                                "manaCost": "{1}{R}",
+                                "text": "Equipped creature gets +1/+0 and has haste.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
+                                "score": "209",
+                                "tier": "Tier 5: Sometimes Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Weapon Rack",
+                                "rarity": "common",
+                                "type": "Artifact",
+                                "manaCost": "{4}",
+                                "text": "Weapon Rack enters the battlefield with three +1/+1 counters on it.\n{T}: Move a +1/+1 counter from Weapon Rack onto target creature. Activate this ability only any time you could cast a sorcery.",
+                                "score": "210",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Prophet of the Peak",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Cat",
+                                "manaCost": "{6}",
+                                "text": "When Prophet of the Peak enters the battlefield, scry 2.",
+                                "score": "211",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Crashing Drawbridge",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Wall",
+                                "manaCost": "{2}",
+                                "text": "Defender\n{T}: Creatures you control gain haste until end of turn.",
+                                "score": "212",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Fling",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{1}{R}",
+                                "text": "As an additional cost to cast this spell, sacrifice a creature.\nFling deals damage equal to the sacrificed creature's power to any target.",
+                                "score": "213",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Memory Theft",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{2}{B}",
+                                "text": "Target opponent reveals their hand. You choose a nonland card from it. That player discards that card. You may put a card that has an Adventure that player owns from exile into that player's graveyard.",
+                                "score": "214",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Reaper of Night",
+                                "rarity": "common",
+                                "type": "Creature — Specter",
+                                "manaCost": "{5}{B}{B}",
+                                "text": "Whenever Reaper of Night attacks, if defending player has two or fewer cards in hand, it gains flying until end of turn.",
+                                "score": "215",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Sorcerer's Broom",
+                                "rarity": "uncommon",
+                                "type": "Artifact Creature — Spirit",
+                                "manaCost": "{2}",
+                                "text": "Whenever you sacrifice another permanent, you may pay {3}. If you do, create a token that's a copy of Sorcerer's Broom.",
+                                "score": "216",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Ardenvale Paladin",
+                                "rarity": "common",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{3}{W}",
+                                "text": "Adamant — If at least three white mana was spent to cast this spell, Ardenvale Paladin enters the battlefield with a +1/+1 counter on it.",
+                                "score": "217",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Bartered Cow",
+                                "rarity": "common",
+                                "type": "Creature — Ox",
+                                "manaCost": "{3}{W}",
+                                "text": "When Bartered Cow dies or when you discard it, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "218",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Tall as a Beanstalk",
+                                "rarity": "common",
+                                "type": "Enchantment — Aura",
+                                "manaCost": "{3}{G}",
+                                "text": "Enchant creature\nEnchanted creature gets +3/+3, has reach, and is a Giant in addition to its other types.",
+                                "score": "219",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Barge In",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{R}",
+                                "text": "Target attacking creature gets +2/+2 until end of turn. Each attacking non-Human creature gains trample until end of turn.",
+                                "score": "220",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Knight of the Keep",
+                                "rarity": "common",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{2}{W}",
+                                "score": "221",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Jousting Dummy",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Scarecrow Knight",
+                                "manaCost": "{2}",
+                                "text": "{3}: Jousting Dummy gets +1/+0 until end of turn.",
+                                "score": "222",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Corridor Monitor",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Construct",
+                                "manaCost": "{1}{U}",
+                                "text": "When Corridor Monitor enters the battlefield, untap target artifact or creature you control.",
+                                "score": "223",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "All That Glitters",
+                                "rarity": "uncommon",
+                                "type": "Enchantment — Aura",
+                                "manaCost": "{1}{W}",
+                                "text": "Enchant creature\nEnchanted creature gets +1/+1 for each artifact and/or enchantment you control.",
+                                "score": "224",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Embereth Paladin",
+                                "rarity": "common",
+                                "type": "Creature — Human Knight",
+                                "manaCost": "{3}{R}",
+                                "text": "Haste\nAdamant — If at least three red mana was spent to cast this spell, Embereth Paladin enters the battlefield with a +1/+1 counter on it.",
+                                "score": "225",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Eye Collector",
+                                "rarity": "common",
+                                "type": "Creature — Faerie",
+                                "manaCost": "{B}",
+                                "text": "Flying\nWhenever Eye Collector deals combat damage to a player, each player puts the top card of their library into their graveyard.",
+                                "score": "226",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Wishful Merfolk",
+                                "rarity": "common",
+                                "type": "Creature — Merfolk",
+                                "manaCost": "{1}{U}",
+                                "text": "Defender\n{1}{U}: Wishful Merfolk loses defender and becomes a Human until end of turn.",
+                                "score": "227",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Lash of Thorns",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{B}",
+                                "text": "Target creature gets +2/+1 and gains deathtouch until end of turn.",
+                                "score": "228",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Locthwain Gargoyle",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Gargoyle",
+                                "manaCost": "{1}",
+                                "text": "{4}: Locthwain Gargoyle gets +2/+0 and gains flying until end of turn.",
+                                "score": "229",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Fell the Pheasant",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{1}{G}",
+                                "text": "Fell the Pheasant deals 5 damage to target creature with flying. Create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\")",
+                                "score": "230",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Inquisitive Puppet",
+                                "rarity": "uncommon",
+                                "type": "Artifact Creature — Construct",
+                                "manaCost": "{1}",
+                                "text": "When Inquisitive Puppet enters the battlefield, scry 1.\nExile Inquisitive Puppet: Create a 1/1 white Human creature token.",
+                                "score": "231",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Gingerbrute",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Food Golem",
+                                "manaCost": "{1}",
+                                "text": "Haste\n{1}: Gingerbrute can't be blocked this turn except by creatures with haste.\n{2}, {T}, Sacrifice Gingerbrute: You gain 3 life.",
+                                "score": "232",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "True Love's Kiss",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{2}{W}{W}",
+                                "text": "Exile target artifact or enchantment.\nDraw a card",
+                                "score": "233",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Weaselback Redcap",
+                                "rarity": "common",
+                                "type": "Creature — Goblin Knight",
+                                "manaCost": "{R}",
+                                "text": "{1}{R}: Weaselback Redcap gets +2/+0 until end of turn.",
+                                "score": "234",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Emry, Lurker of the Loch",
+                                "rarity": "rare",
+                                "type": "Legendary Creature — Merfolk Wizard",
+                                "manaCost": "{2}{U}",
+                                "text": "This spell costs {1} less to cast for each artifact you control.\nWhen Emry, Lurker of the Loch enters the battlefield, put the top four cards of your library into your graveyard.\n{T}: Choose target artifact card in your graveyard. You may cast that card this turn. (You still pay its costs. Timing rules still apply.)",
+                                "score": "235",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Blow Your House Down",
+                                "rarity": "common",
+                                "type": "Sorcery",
+                                "manaCost": "{2}{R}",
+                                "text": "Up to three target creatures can't block this turn. Destroy any of them that are Walls.",
+                                "score": "236",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Return to Nature",
+                                "rarity": "common",
+                                "type": "Instant",
+                                "manaCost": "{1}{G}",
+                                "text": "Choose one —\n• Destroy target artifact.\n• Destroy target enchantment.\n• Exile target card from a graveyard.",
+                                "score": "237",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "G"
+                                ],
+                                "name": "Flaxen Intruder",
+                                "rarity": "uncommon",
+                                "type": "Creature — Human Berserker",
+                                "manaCost": "{G}",
+                                "text": "Whenever Flaxen Intruder deals combat damage to a player, you may sacrifice it. When you do, destroy target artifact or enchantment.",
+                                "score": "238",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Specter's Shriek",
+                                "rarity": "uncommon",
+                                "type": "Sorcery",
+                                "manaCost": "{B}",
+                                "text": "Target opponent reveals their hand. You may choose a nonland card from it. If you do, that player exiles that card. If a nonblack card is exiled this way, exile a card from your hand.",
+                                "score": "239",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Beloved Princess",
+                                "rarity": "common",
+                                "type": "Creature — Human Noble",
+                                "manaCost": "{W}",
+                                "text": "Lifelink\nBeloved Princess can't be blocked by creatures with power 3 or greater.",
+                                "score": "240",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Claim the Firstborn",
+                                "rarity": "uncommon",
+                                "type": "Sorcery",
+                                "manaCost": "{R}",
+                                "text": "Gain control of target creature with converted mana cost 3 or less until end of turn. Untap that creature. It gains haste until end of turn.",
+                                "score": "241",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Roving Keep",
+                                "rarity": "common",
+                                "type": "Artifact Creature — Wall",
+                                "manaCost": "{7}",
+                                "text": "Defender\n{7}: Roving Keep gets +2/+0 and gains trample until end of turn. It can attack this turn as though it didn't have defender.",
+                                "score": "242",
+                                "tier": "Tier 6: Rarely Playable"
+                            },
+                            {
+                                "colors": [
+                                    "U"
+                                ],
+                                "name": "Folio of Fancies",
+                                "rarity": "rare",
+                                "type": "Artifact",
+                                "manaCost": "{1}{U}",
+                                "text": "Players have no maximum hand size.\n{X}{X}, {T}: Each player draws X cards.\n{2}{U}, {T}: Each opponent puts a number of cards equal to the number of cards in their hand from the top of their library into their graveyard.",
+                                "score": "243",
+                                "tier": "Tier 7: Basically Unplayable"
+                            },
+                            {
+                                "colors": [
+                                    "B"
+                                ],
+                                "name": "Cauldron Familiar",
+                                "rarity": "uncommon",
+                                "type": "Creature — Cat",
+                                "manaCost": "{B}",
+                                "text": "When Cauldron Familiar enters the battlefield, each opponent loses 1 life and you gain 1 life.\nSacrifice a Food: Return Cauldron Familiar from your graveyard to the battlefield.",
+                                "score": "244",
+                                "tier": "Tier 7: Basically Unplayable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Irencrag Feat",
+                                "rarity": "rare",
+                                "type": "Sorcery",
+                                "manaCost": "{1}{R}{R}{R}",
+                                "text": "Add seven {R}. You can cast only one more spell this turn.",
+                                "score": "245",
+                                "tier": "Tier 7: Basically Unplayable"
+                            },
+                            {
+                                "colors": [
+                                    "R"
+                                ],
+                                "name": "Fires of Invention",
+                                "rarity": "rare",
+                                "type": "Enchantment",
+                                "manaCost": "{3}{R}",
+                                "text": "You can cast spells only during your turn and you can cast no more than two spells each turn.\nYou may cast spells with converted mana cost less than or equal to the number of lands you control without paying their mana costs.",
+                                "score": "246",
+                                "tier": "Tier 7: Basically Unplayable"
+                            },
+                            {
+                                "colors": [],
+                                "name": "Sorcerous Spyglass",
+                                "rarity": "rare",
+                                "type": "Artifact",
+                                "manaCost": "{2}",
+                                "text": "As Sorcerous Spyglass enters the battlefield, look at an opponent's hand, then choose any card name.\nActivated abilities of sources with the chosen name can't be activated unless they're mana abilities.",
+                                "score": "247",
+                                "tier": "Tier 7: Basically Unplayable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Happily Ever After",
+                                "rarity": "rare",
+                                "type": "Enchantment",
+                                "manaCost": "{2}{W}",
+                                "text": "When Happily Ever After enters the battlefield, each player gains 5 life and draws a card.\nAt the beginning of your upkeep, if there are five colors among permanents you control, there are six or more card types among permanents you control and/or cards in your graveyard, and your life total is greater than or equal to your starting life total, you win the game.",
+                                "score": "248",
+                                "tier": "Tier 7: Basically Unplayable"
+                            },
+                            {
+                                "colors": [
+                                    "W"
+                                ],
+                                "name": "Deafening Silence",
+                                "rarity": "uncommon",
+                                "type": "Enchantment",
+                                "manaCost": "{W}",
+                                "text": "Each player can't cast more than one noncreature spell each turn.",
+                                "score": "249",
+                                "tier": "Tier 7: Basically Unplayable"
+                            }
+                        ]
+                    }
+                });
+            })();
+        </script>
+    </body>
+</html>

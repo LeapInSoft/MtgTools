@@ -1,7 +1,8 @@
+'use strict';
 const R = require('ramda');
 const goldBank = 5000;
-const winPercent = 40;
-const eventPrice = 250;
+const winPercent = 30;
+const nOfSimulation = 10000;
 const initialState = {
     win: 0, 
     loose: 0, 
@@ -14,7 +15,7 @@ const TOTAL_RARE = 253;
 
 
 const winTableMomir = {
-    rules: { loose : 2, win : 5},
+    rules: { loose : 2, win : 5, eventPrice: 250},
     0: {gold : 50, icrs: [15, 1]},
     1: {gold : 100, icrs: [20, 5]},
     2: {gold : 150, icrs: [25, 10]},
@@ -34,7 +35,18 @@ const winTableConstructed = {
     7: {gold : 1000, icrs: [100, 100, 5]}
 };
 
-const winTable = winTableConstructed;
+const rankedDraft = {
+    rules: { loose : 3, win : 7, eventPrice: 5000},
+    0: {gold : 0, gems : 50, packs: 1.20},
+    1: {gold : 0, gems : 100, packs: 1.22},
+    2: {gold : 0, gems : 200, packs: 1.24},
+    3: {gold : 0, gems : 300, packs: 1.26},
+    4: {gold : 0, gems : 450, packs: 1.30},
+    5: {gold : 0, gems : 650, packs: 1.35},
+    6: {gold : 0, gems : 850, packs: 1.40},
+    7: {gold : 0, gems : 950, packs: 2}
+}
+const winTable = winTableMomir;
 
 const isRandomWinH = (percent) => () => Math.random() < percent / 100;
 const isRandomWin = isRandomWinH(winPercent);
@@ -48,10 +60,38 @@ const participateEventH = R.curry((playMatch, winTable, state) => {
     return {...winTable[eventResult.win], games : eventResult.games};
 })
 const participateEvent = participateEventH(playMatch, winTable);
-console.log(participateEvent(initialState))
+
+const participateUntil3400Gems = (state) => {
+    if (state.gems >= 3400) return state;
+    const event = participateEvent(initialState);
+    const nextState = {
+        participation: (state.participation || 0) + 1,
+        gems: (state.gems || 0) + event.gems, 
+        packs: (state.packs || 0) + event.packs
+    };
+    return participateUntil3400Gems(nextState)
+}
 /*
+const N = 10000;
+const participateNTimes = R.times(() => participateUntil3400Gems({gems: 3100, packs: 0}), N);
+const result = R.reduce(
+    (acc, val) => {
+        return {
+            participation: (acc.participation || 0) + val.participation,
+            gems : (acc.gems || 0) + val.gems,
+            packs : (acc.packs || 0) + val.packs
+        }
+    },
+    { participation: 0, gems: 0, packs: 0 },
+    participateNTimes);
+console.log({ 
+    participation: result.participation / N,
+    gems: result.gems / N,
+    packs: result.packs / N
+});
+*/
 const participateUntilNoGold = (state, eventPrice) => {
-    if (state.gold - eventPrice <= 0) return state;
+    if (state.gold - eventPrice < 0) return state;
     const event = participateEvent(initialState);
     const nextState = {
         gold: state.gold - eventPrice + event.gold, 
@@ -83,38 +123,45 @@ const randCard = R.reduce((acc, val) => {
 }, {u: 0,r: 0});
 
 const iterator = (acc, value) => {
-    const x = randCard(value.icrs);
+    const x = value.icrs ? randCard(value.icrs) : {u: 0, r: 0, gold: acc.gold + value.gold };
     return {u : acc.u + x.u, r : acc.r + x.r, gold: acc.gold + value.gold }
 }
 const computeParticipationtResult = R.reduce(iterator, {u: 0, r: 0, gold: 0});
 
 
-const simulations = R.times(() =>  participateUntilNoGold({
-    gold: goldBank, 
-    result : [], 
-    games: 0,
-    spendGold: 0,
-    earnGold: 0
-}, eventPrice), 1000);
-
-const result = R.reduce((acc, value) => {
-    const c = computeParticipationtResult(value.result);
-    return {
-        spendGold: acc.spendGold + value.spendGold,
-        earnGold: acc.earnGold + value.earnGold,
-        games: acc.games + value.games, 
-        n : acc.n + 1, 
-        u: acc.u + c.u, 
-        r: acc.r + c.r
-    };
-}, {n: 0, u: 0, r: 0, games: 0, spendGold: 0, earnGold: 0}, simulations);
-
-const x = {
-    nOfSimulation : result.n, 
-    spendGold : result.spendGold / result.n,
-    earnGold : result.earnGold / result.n,
-    games: result.games / result.n, 
-    unco : result.u / result.n, 
-    rare : result.r / result.n
+const run = (nOfSimulation, winTable, goldBank, participateUntil) => {
+    const simulations = R.times(() =>  participateUntil({
+        gold: goldBank, 
+        result : [], 
+        games: 0,
+        spendGold: 0,
+        earnGold: 0
+    }, winTable.rules.eventPrice), nOfSimulation);
+    
+    const result = R.reduce((acc, value) => {
+        const c = computeParticipationtResult(value.result);
+        return {
+            spendGold: acc.spendGold + value.spendGold,
+            earnGold: acc.earnGold + value.earnGold,
+            games: acc.games + value.games, 
+            n : acc.n + 1, 
+            u: acc.u + c.u, 
+            r: acc.r + c.r
+        };
+    }, {n: 0, u: 0, r: 0, games: 0, spendGold: 0, earnGold: 0}, simulations);
+    
+    const x = {
+        nOfSimulation : result.n,
+        startingGolds: goldBank, 
+        spendGold : result.spendGold / result.n,
+        earnGold : result.earnGold / result.n,
+        games: result.games / result.n, 
+        unco : result.u / result.n, 
+        rare : result.r / result.n,
+        winPercent
+    }
+    console.log({...x, diff: x.earnGold - x.spendGold});
 }
-console.log({...x, diff: x.earnGold - x.spendGold});*/
+
+exports.run = run;
+run(nOfSimulation, winTable, goldBank, participateUntilNoGold);

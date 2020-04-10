@@ -1,10 +1,11 @@
 const http = require('https');
 const fs = require('fs');
-const sets = require('./ELD.json');
+const sets = require('./THB.json');
 const R = require('ramda');
 
 // # Data manipulation
-const choiceName = (card) => card.names !== undefined ? (card.names.length > 1 ? card.names.join("") : card.name) : card.name;
+//const choiceName = (card) => card.names !== undefined ? (card.names.length > 1 ? card.names.join("") : card.name) : card.name;
+const choiceName = (card) => card.name;
 const setAlias = (setName) => {
   switch (setName) {
     case 'CON':
@@ -27,7 +28,7 @@ const downloadImpure = (log)  => (filename, setDirectory, url) => {
   log(filename, setDirectory, url);
   !fs.existsSync(setDirectory) && fs.mkdirSync(setDirectory);
 
-  if (fs.existsSync(fullFileName)) {
+  if (fs.existsSync(fullFileName) || url.indexOf('multiverseid=undefine') > -1 ) {
     log(`Skip ${fullFileName}`)
   } else {
     http.get(url, function(response) {
